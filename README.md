@@ -1,12 +1,53 @@
-# React + Vite
+# Assembly Endgame Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🚀 Overview
 
-Currently, two official plugins are available:
+The **Assembly Endgame Project** is an accessible Hangman-style game built using React. It focuses on core React principles like state management, component-based architecture, and event handling.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🎯 Features
 
-## Expanding the ESLint configuration
+- Component-based architecture
+- State management with `useState`
+- Props and event handling
+- Fully accessible for screen readers
+- Interactive Hangman-style gameplay
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+- React.js (Vite setup recommended)
+- JavaScript (ES6+)
+- CSS (for styling)
+
+## 📦 Installation
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/taha3313/AssemblyEndgame.git
+   cd AssemblyEndgame
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Start the development server:
+   ```sh
+   npm run dev
+   ```
+
+## 📜 Usage
+
+1. Open the app in your browser at `http://localhost:5173/`
+2. Play the Hangman-style game by guessing letters!
+3. Enjoy an accessible user experience designed for screen readers.
+
+## 🤝 Contributing
+
+Feel free to fork this project and improve it! Pull requests are welcome. 🎉
+
+## 📜 License
+
+This project is for educational purposes.
+
+---
+
+Happy coding! 🚀
