@@ -3,20 +3,11 @@ import { clsx } from "clsx"
 import { languages } from "./languages"
 import { getFarewellText, getRandomWord } from "./utils"
 import Confetti from "react-confetti"
+import { useCallback } from "react";
+import Particles from "react-tsparticles";
+import { loadSlim } from "tsparticles-slim";
 
-/**
- * Backlog:
- * 
- * ✅ Farewell messages in status section
- * ✅ Disable the keyboard when the game is over
- * ✅ Fix a11y issues
- * ✅ Choose a random word from a list of words
- * ✅ Make the New Game button reset the game
- * ✅ Reveal what the word was if the user loses the game
- * ✅ Confetti drop when the user wins
- * 
- * Challenge: 🎊🎊🎊🎊🎊
- */
+
 
 export default function AssemblyEndgame() {
     // State values
@@ -24,9 +15,10 @@ export default function AssemblyEndgame() {
     const [guessedLetters, setGuessedLetters] = useState([])
 
     // Derived values
-    const numGuessesLeft = languages.length - 1
     const wrongGuessCount =
-        guessedLetters.filter(letter => !currentWord.includes(letter)).length
+    guessedLetters.filter(letter => !currentWord.includes(letter)).length
+    const numGuessesLeft = languages.length -  1
+    const currentNumGuessesLeft = numGuessesLeft - wrongGuessCount 
     const isGameWon =
         currentWord.split("").every(letter => guessedLetters.includes(letter))
     const isGameLost = wrongGuessCount >= numGuessesLeft
@@ -150,6 +142,7 @@ export default function AssemblyEndgame() {
 
     return (
         <main>
+            {isLastGuessIncorrect && <div key={wrongGuessCount} className={`red-flash-overlay active`}></div>}
             {
                 isGameWon && 
                     <Confetti
@@ -157,12 +150,38 @@ export default function AssemblyEndgame() {
                         numberOfPieces={1000}
                     />
             }
+ {isGameLost && (
+    <Particles
+        id="tsparticles"
+        options={{
+            particles: {
+                number: { value: 150 },
+                color: { value: ["#800", "#600", "#333"] }, // Dark red & gray
+                opacity: { value: 0.8, anim: { enable: true, speed: 0.5 } },
+                move: { enable: true, speed: 3, direction: "bottom" },
+                size: { value: 5, random: true },
+                life: { duration: 10, count: 5 }, // Disappear after 2 seconds
+            },
+            detectRetina: true,
+        }}
+    />
+)}
+
+
+
             <header>
                 <h1>Assembly: Endgame</h1>
-                <p>Guess the word within 8 attempts to keep the
+                <p>Guess the word within {numGuessesLeft} attempts to keep the
                 programming world safe from Assembly!</p>
             </header>
 
+            <section
+                aria-live="polite"
+                role="status"
+                className="attemptsLeft"
+            >
+                <h2>{currentNumGuessesLeft} attempts left</h2>
+            </section>
             <section
                 aria-live="polite"
                 role="status"
@@ -190,7 +209,7 @@ export default function AssemblyEndgame() {
                         `Correct! The letter ${lastGuessedLetter} is in the word.` :
                         `Sorry, the letter ${lastGuessedLetter} is not in the word.`
                     }
-                    You have {numGuessesLeft} attempts left.
+                    You have {currentNumGuessesLeft} attempts left.
                 </p>
                 <p>Current word: {currentWord.split("").map(letter =>
                     guessedLetters.includes(letter) ? letter + "." : "blank.")
