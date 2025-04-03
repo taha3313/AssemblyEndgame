@@ -50,4 +50,3 @@ This project is for educational purposes.
 
 ---
 
-Happy coding! 🚀
